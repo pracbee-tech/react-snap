@@ -157,7 +157,7 @@ const crawl = async opt => {
 
   const onUnhandledRejection = error => {
     console.log("🔥  UnhandledPromiseRejectionWarning", error);
-    shuttingDown = true;
+    // shuttingDown = true;
   };
   process.on("unhandledRejection", onUnhandledRejection);
 
@@ -230,7 +230,9 @@ const crawl = async opt => {
           options,
           route,
           onError: () => {
-            shuttingDown = true;
+            if (!options.ignorePageErrors) {
+              shuttingDown = true;
+            }
           },
           sourcemapStore
         });
